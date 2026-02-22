@@ -32,4 +32,21 @@ public class SessionServiceImpl implements ISessionService{
     public List<Session> getAllSessions() {
         return repo.findAll();
     }
+
+    @Override
+    public Session updateSessionById(Session session, Integer id) {
+        Session updateSession = repo.findById(id).orElseThrow(()-> new NotFoundException("id "+id+" not found for updated"));
+        updateSession.setTitle(session.getTitle());
+        updateSession.setStartDate(session.getStartDate());
+        updateSession.setStartTime(session.getStartTime());
+        return repo.save(updateSession);
+    }
+
+    @Override
+    public void deleteSessionById(Integer id) {
+        if (!repo.existsById(id)){
+            throw new NotFoundException("id "+id+" not found");
+        }
+        repo.deleteById(id);
+    }
 }

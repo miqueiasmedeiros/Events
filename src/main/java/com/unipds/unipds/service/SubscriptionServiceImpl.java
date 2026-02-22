@@ -1,5 +1,6 @@
 package com.unipds.unipds.service;
 
+import com.unipds.unipds.exception.NotFoundException;
 import com.unipds.unipds.model.Session;
 import com.unipds.unipds.model.Subscription;
 import com.unipds.unipds.model.User;
@@ -35,4 +36,13 @@ public class SubscriptionServiceImpl implements ISubscriptionService{
     public List<Subscription> getAllBySession(Session session) {
         return repo.findByIdSession(session);
     }
+
+    @Override
+    public void deleteSubById(Integer id) {
+        if (!repo.existsById(id)){
+            throw new NotFoundException("id "+id+" not found");
+        }
+
+    }
+
 }

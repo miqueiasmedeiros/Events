@@ -8,4 +8,6 @@ public interface ISessionService {
     public Session addSession(Session session);
     public Session getSessionById(Integer id);
     public List<Session> getAllSessions();
+    public Session updateSessionById(Session session, Integer id);
+    public void deleteSessionById(Integer id);
 }

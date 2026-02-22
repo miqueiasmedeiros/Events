@@ -1,5 +1,6 @@
 package com.unipds.unipds.controller;
 
+import com.unipds.unipds.exception.NotFoundException;
 import com.unipds.unipds.model.Session;
 import com.unipds.unipds.model.Subscription;
 import com.unipds.unipds.model.User;
@@ -12,7 +13,7 @@ import java.util.List;
 @RestController
 public class SubscriptionController {
 
-    private ISubscriptionService service;
+    private final ISubscriptionService service;
 
     public SubscriptionController(ISubscriptionService service) {
         this.service = service;
@@ -35,4 +36,14 @@ public class SubscriptionController {
         session.setIdSession(id);
         return ResponseEntity.ok(service.getAllBySession(session));
     }
+    @DeleteMapping("subscriptions/{id}")
+    public ResponseEntity<String> deleteSubById(@PathVariable Integer id){
+        try {
+            service.deleteSubById(id);
+            return ResponseEntity.ok("Subscription successfully deleted.");
+        }catch (Exception e){
+            throw new NotFoundException(e.getMessage());
+        }
+    }
+
 }

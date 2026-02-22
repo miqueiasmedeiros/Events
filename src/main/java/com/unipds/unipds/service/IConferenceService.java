@@ -9,4 +9,5 @@ public interface IConferenceService {
     public Conference getConferenceById(Integer id);
     public List<Conference> getAllConferences();
     public Conference updateConferenceById(Conference conference, Integer id);
+    public void deleteConferenceById(Integer id);
 }

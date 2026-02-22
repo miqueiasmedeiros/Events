@@ -34,6 +34,17 @@ public class ConferenceServiceImpl implements IConferenceService{
 
     @Override
     public Conference updateConferenceById(Conference conference, Integer id) {
-        return null;
+        Conference conferenceUpdate = repo.findById(id).orElseThrow(()-> new NotFoundException("id "+id+" not found for updated"));
+        conferenceUpdate.setNome(conference.getNome());
+        conferenceUpdate.setAddress(conference.getAddress());
+        return repo.save(conference);
+    }
+
+    @Override
+    public void deleteConferenceById(Integer id) {
+        if (!repo.existsById(id)){
+            throw new NotFoundException("id "+ id + " not found");
+        }
+        repo.deleteById(id);
     }
 }
