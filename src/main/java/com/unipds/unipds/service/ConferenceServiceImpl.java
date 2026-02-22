@@ -31,4 +31,9 @@ public class ConferenceServiceImpl implements IConferenceService{
     public List<Conference> getAllConferences() {
         return repo.findAll();
     }
+
+    @Override
+    public Conference updateConferenceById(Conference conference, Integer id) {
+        return null;
+    }
 }

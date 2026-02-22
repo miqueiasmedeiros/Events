@@ -35,4 +35,21 @@ public class UserServiceImpl implements IUserService{
     public List<User> getAllUsers() {
         return repo.findAll();
     }
+
+    @Override
+    public void deleteUserById(Integer id) {
+        if (!repo.existsById(id)){
+            throw new NotFoundException("Id "+ id + " not found");
+        }
+        repo.deleteById(id);
+    }
+
+    @Override
+    public User updateUserById(User user, Integer id) {
+        User updateUser = repo.findById(id).orElseThrow(()-> new NotFoundException("Id "+id+" not found for updated"));
+        updateUser.setNome(user.getNome());
+        updateUser.setEmail(user.getEmail());
+      return repo.save(updateUser);
+    }
+
 }
